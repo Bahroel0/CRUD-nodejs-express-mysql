@@ -1,17 +1,7 @@
 var Sequelize =  require("sequelize");
-var config = require("./../../config");
-var mysql = require("mysql");
-var sequelize = new Sequelize(config.database, config.user, config.password, {
-  host: config.host,
-  dialect: 'mysql',
-  pool: {
-    max: 5,
-    min: 0,
-    idle: 10000
-  }
-});
+var sequelize = require('../db/sequalize');
 
-var Mahasiswa = sequelize.define('mahasiswa', {
+var tableAttribute = {
   id:{
     type: Sequelize.INTEGER,
     field: 'id',
@@ -29,10 +19,13 @@ var Mahasiswa = sequelize.define('mahasiswa', {
     type: Sequelize.INTEGER,
     field: 'kelas_id'
   }
-},
-{
+};
+
+var tableConfig = {
   timestamps: false,
   tableName: 'mahasiswa'
-})
+}
+
+var Mahasiswa = sequelize.define('mahasiswa', tableAttribute, tableConfig);
 
 module.exports = Mahasiswa;
